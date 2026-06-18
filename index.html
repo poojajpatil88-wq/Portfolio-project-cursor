@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sudoku</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: "Segoe UI", system-ui, sans-serif;
+      background: linear-gradient(145deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+      color: #e8e8e8;
+      padding: 1.5rem;
+    }
+
+    .container {
+      width: min(100%, 480px);
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 2rem;
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+      letter-spacing: 0.05em;
+    }
+
+    .subtitle {
+      color: #94a3b8;
+      font-size: 0.9rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      justify-content: center;
+      margin-bottom: 1rem;
+    }
+
+    select, button {
+      font: inherit;
+      border: none;
+      border-radius: 8px;
+      padding: 0.5rem 0.85rem;
+      cursor: pointer;
+    }
+
+    select {
+      background: #334155;
+      color: #f1f5f9;
+    }
+
+    button {
+      background: #3b82f6;
+      color: #fff;
+      transition: background 0.15s;
+    }
+
+    button:hover {
+      background: #2563eb;
+    }
+
+    button.secondary {
+      background: #475569;
+    }
+
+    button.secondary:hover {
+      background: #64748b;
+    }
+
+    .board {
+      display: grid;
+      grid-template-columns: repeat(9, 1fr);
+      gap: 0;
+      background: #0f172a;
+      border: 3px solid #e2e8f0;
+      border-radius: 6px;
+      overflow: hidden;
+      margin: 0 auto 1rem;
+      aspect-ratio: 1;
+      max-width: 420px;
+    }
+
+    .cell {
+      aspect-ratio: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: clamp(1rem, 4vw, 1.4rem);
+      font-weight: 600;
+      background: #1e293b;
+      border: 1px solid #334155;
+      cursor: pointer;
+      user-select: none;
+      transition: background 0.1s;
+    }
+
+    .cell:nth-child(3n):not(:nth-child(9n)) {
+      border-right: 2px solid #cbd5e1;
+    }
+
+    .cell:nth-child(n+19):nth-child(-n+27),
+    .cell:nth-child(n+46):nth-child(-n+54) {
+      border-bottom: 2px solid #cbd5e1;
+    }
+
+    .cell.fixed {
+      background: #0f172a;
+      color: #93c5fd;
+      cursor: default;
+    }
+
+    .cell.selected {
+      background: #1d4ed8;
+      color: #fff;
+    }
+
+    .cell.highlight {
+      background: #1e3a5f;
+    }
+
+    .cell.error {
+      background: #7f1d1d;
+      color: #fecaca;
+    }
+
+    .cell.fixed.error {
+      color: #fca5a5;
+    }
+
+    .numpad {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 0.5rem;
+      max-width: 420px;
+      margin: 0 auto 1rem;
+    }
+
+    .numpad button {
+      padding: 0.65rem;
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+
+    .numpad .clear-btn {
+      grid-column: span 2;
+    }
+
+    .status {
+      min-height: 1.5rem;
+      font-size: 0.95rem;
+      color: #94a3b8;
+    }
+
+    .status.success {
+      color: #4ade80;
+      font-weight: 600;
+    }
+
+    .status.error {
+      color: #f87171;
+    }
+
+    .help {
+      margin-top: 1rem;
+      font-size: 0.8rem;
+      color: #64748b;
+      line-height: 1.5;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Sudoku</h1>
+    <p class="subtitle">Fill the grid so every row, column, and 3×3 box has digits 1–9.</p>
+
+    <div class="controls">
+      <select id="difficulty" aria-label="Difficulty">
+        <option value="easy">Easy</option>
+        <option value="medium" selected>Medium</option>
+        <option value="hard">Hard</option>
+      </select>
+      <button id="newGame">New Game</button>
+      <button id="checkBtn" class="secondary">Check</button>
+      <button id="solveBtn" class="secondary">Reveal</button>
+    </div>
+
+    <div id="board" class="board" role="grid" aria-label="Sudoku board"></div>
+
+    <div class="numpad" aria-label="Number pad">
+      <button data-num="1">1</button>
+      <button data-num="2">2</button>
+      <button data-num="3">3</button>
+      <button data-num="4">4</button>
+      <button data-num="5">5</button>
+      <button data-num="6">6</button>
+      <button data-num="7">7</button>
+      <button data-num="8">8</button>
+      <button data-num="9">9</button>
+      <button class="clear-btn secondary" data-num="0">Clear</button>
+    </div>
+
+    <p id="status" class="status" aria-live="polite"></p>
+    <p class="help">Click a cell, then pick a number. Use keyboard 1–9 or Backspace to clear.</p>
+  </div>
+
+  <script>
+    const boardEl = document.getElementById("board");
+    const statusEl = document.getElementById("status");
+    const difficultyEl = document.getElementById("difficulty");
+
+    let solution = [];
+    let puzzle = [];
+    let fixed = [];
+    let selected = -1;
+
+    const HOLES = { easy: 35, medium: 45, hard: 55 };
+
+    function createEmpty() {
+      return Array.from({ length: 9 }, () => Array(9).fill(0));
+    }
+
+    function shuffle(arr) {
+      for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+      }
+      return arr;
+    }
+
+    function isValid(grid, row, col, num) {
+      for (let i = 0; i < 9; i++) {
+        if (grid[row][i] === num || grid[i][col] === num) return false;
+      }
+      const br = Math.floor(row / 3) * 3;
+      const bc = Math.floor(col / 3) * 3;
+      for (let r = br; r < br + 3; r++) {
+        for (let c = bc; c < bc + 3; c++) {
+          if (grid[r][c] === num) return false;
+        }
+      }
+      return true;
+    }
+
+    function fillGrid(grid) {
+      for (let row = 0; row < 9; row++) {
+        for (let col = 0; col < 9; col++) {
+          if (grid[row][col] !== 0) continue;
+          for (const num of shuffle([1, 2, 3, 4, 5, 6, 7, 8, 9])) {
+            if (isValid(grid, row, col, num)) {
+              grid[row][col] = num;
+              if (fillGrid(grid)) return true;
+              grid[row][col] = 0;
+            }
+          }
+          return false;
+        }
+      }
+      return true;
+    }
+
+    function generateSolution() {
+      const grid = createEmpty();
+      fillGrid(grid);
+      return grid;
+    }
+
+    function makePuzzle(full, holes) {
+      const grid = full.map(row => row.slice());
+      const positions = shuffle([...Array(81).keys()]);
+      let removed = 0;
+      for (const pos of positions) {
+        if (removed >= holes) break;
+        const r = Math.floor(pos / 9);
+        const c = pos % 9;
+        grid[r][c] = 0;
+        removed++;
+      }
+      return grid;
+    }
+
+    function renderBoard() {
+      boardEl.innerHTML = "";
+      for (let i = 0; i < 81; i++) {
+        const cell = document.createElement("div");
+        cell.className = "cell";
+        cell.dataset.index = i;
+        cell.setAttribute("role", "gridcell");
+
+        const r = Math.floor(i / 9);
+        const c = i % 9;
+        const val = puzzle[r][c];
+
+        if (fixed[i]) {
+          cell.classList.add("fixed");
+          cell.textContent = val;
+        } else if (val !== 0) {
+          cell.textContent = val;
+        }
+
+        cell.addEventListener("click", () => selectCell(i));
+        boardEl.appendChild(cell);
+      }
+      updateHighlights();
+    }
+
+    function selectCell(index) {
+      if (fixed[index]) return;
+      selected = index;
+      statusEl.textContent = "";
+      statusEl.className = "status";
+      updateHighlights();
+    }
+
+    function updateHighlights() {
+      const cells = boardEl.querySelectorAll(".cell");
+      cells.forEach(cell => cell.classList.remove("selected", "highlight", "error"));
+
+      if (selected < 0) return;
+
+      const sr = Math.floor(selected / 9);
+      const sc = selected % 9;
+      const selVal = puzzle[sr][sc];
+
+      cells.forEach((cell, i) => {
+        const r = Math.floor(i / 9);
+        const c = i % 9;
+        const sameRow = r === sr;
+        const sameCol = c === sc;
+        const sameBox = Math.floor(r / 3) === Math.floor(sr / 3) && Math.floor(c / 3) === Math.floor(sc / 3);
+
+        if (i === selected) {
+          cell.classList.add("selected");
+        } else if (selVal !== 0 && puzzle[r][c] === selVal) {
+          cell.classList.add("highlight");
+        } else if (sameRow || sameCol || sameBox) {
+          cell.classList.add("highlight");
+        }
+
+        if (!fixed[i] && puzzle[r][c] !== 0 && puzzle[r][c] !== solution[r][c]) {
+          cell.classList.add("error");
+        }
+      });
+    }
+
+    function setCellValue(num) {
+      if (selected < 0 || fixed[selected]) return;
+      const r = Math.floor(selected / 9);
+      const c = selected % 9;
+      puzzle[r][c] = num;
+      renderBoard();
+      selectCell(selected);
+
+      if (isComplete() && isCorrect()) {
+        statusEl.textContent = "Congratulations! You solved the puzzle!";
+        statusEl.className = "status success";
+      }
+    }
+
+    function isComplete() {
+      return puzzle.every(row => row.every(n => n !== 0));
+    }
+
+    function isCorrect() {
+      for (let r = 0; r < 9; r++) {
+        for (let c = 0; c < 9; c++) {
+          if (puzzle[r][c] !== solution[r][c]) return false;
+        }
+      }
+      return true;
+    }
+
+    function checkBoard() {
+      const errors = [];
+      for (let r = 0; r < 9; r++) {
+        for (let c = 0; c < 9; c++) {
+          if (!fixed[r * 9 + c] && puzzle[r][c] !== 0 && puzzle[r][c] !== solution[r][c]) {
+            errors.push(r * 9 + c);
+          }
+        }
+      }
+      renderBoard();
+      if (selected >= 0) selectCell(selected);
+
+      if (isComplete() && isCorrect()) {
+        statusEl.textContent = "Perfect! Puzzle solved correctly.";
+        statusEl.className = "status success";
+      } else if (errors.length === 0 && !isComplete()) {
+        statusEl.textContent = "Looking good so far — keep going!";
+        statusEl.className = "status";
+      } else if (errors.length > 0) {
+        statusEl.textContent = `${errors.length} mistake${errors.length > 1 ? "s" : ""} found (highlighted in red).`;
+        statusEl.className = "status error";
+      }
+    }
+
+    function revealSolution() {
+      puzzle = solution.map(row => row.slice());
+      statusEl.textContent = "Solution revealed.";
+      statusEl.className = "status";
+      renderBoard();
+      selected = -1;
+    }
+
+    function newGame() {
+      solution = generateSolution();
+      const holes = HOLES[difficultyEl.value] || HOLES.medium;
+      puzzle = makePuzzle(solution, holes);
+      fixed = puzzle.flatMap((row, r) =>
+        row.map((val, c) => val !== 0 ? true : false)
+      );
+      selected = -1;
+      statusEl.textContent = "";
+      statusEl.className = "status";
+      renderBoard();
+    }
+
+    document.getElementById("newGame").addEventListener("click", newGame);
+    document.getElementById("checkBtn").addEventListener("click", checkBoard);
+    document.getElementById("solveBtn").addEventListener("click", revealSolution);
+    difficultyEl.addEventListener("change", newGame);
+
+    document.querySelectorAll(".numpad button").forEach(btn => {
+      btn.addEventListener("click", () => {
+        setCellValue(parseInt(btn.dataset.num, 10));
+      });
+    });
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key >= "1" && e.key <= "9") {
+        setCellValue(parseInt(e.key, 10));
+      } else if (e.key === "Backspace" || e.key === "Delete" || e.key === "0") {
+        setCellValue(0);
+      } else if (e.key.startsWith("Arrow")) {
+        if (selected < 0) {
+          selectCell(0);
+          return;
+        }
+        let r = Math.floor(selected / 9);
+        let c = selected % 9;
+        if (e.key === "ArrowUp") r = Math.max(0, r - 1);
+        if (e.key === "ArrowDown") r = Math.min(8, r + 1);
+        if (e.key === "ArrowLeft") c = Math.max(0, c - 1);
+        if (e.key === "ArrowRight") c = Math.min(8, c + 1);
+        selectCell(r * 9 + c);
+      }
+    });
+
+    newGame();
+  </script>
+</body>
+</html>
