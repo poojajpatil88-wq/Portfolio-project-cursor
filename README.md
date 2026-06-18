@@ -26,3 +26,7 @@
 ### 2. Missing Local Git Dependency (git.clone / git.showOutput Error)
 * *Issue*: Attempting to clone the repository natively within Cursor triggered a missing command error because Git was not installed on the base Windows operating system.
 * *Solution*: Downloaded and executed the official 64-bit Git for Windows installer from git-scm.com. Safely closed and restarted the Cursor IDE instance to refresh system path variables, allowing the environment to successfully recognize and execute Git commands.
+
+### 3. Anthropic API Key Integration via Cursor Web
+* *Issue*: Initially attempted to integrate a personal Anthropic API key through Cursor Web rather than the Cursor desktop application. The web interface did not provide the same settings workflow needed to link the API key and enable model access on the free tier.
+* *Solution*: Switched to the Cursor desktop app on Windows, opened Settings, and configured the Anthropic API key there. The desktop app correctly recognized the key and restored model access.
