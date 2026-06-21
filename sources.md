@@ -98,24 +98,6 @@ This document catalogs 10 expert practitioners and educators in YouTube content 
 
 ---
 
-## How to Use This Directory
-
-### For Transcript Extraction (100Hires Assignment)
-Extract transcripts from these experts in this priority order:
-1. **Highest Priority:** Samu Kovács, Sam Dunning, Andrey Nikitin (YouTube-first specialists)
-2. **High Priority:** Dan Martell, Kevin Chen, George Coudounaris (live implementation proof)
-3. **Secondary:** Jay Acunzo, Derral Eves, Adam Robinson (broader context + foundational knowledge)
-4. **Reference:** ContentBuck (frameworks and playbooks)
-
-### Key Themes to Track Across Experts
-- **Topic Selection & Packaging:** How do they identify high-intent, searchable topics?
-- **YouTube SEO Mechanics:** What optimization tactics actually move the needle?
-- **Full-Funnel Design:** How does YouTube fit into the complete B2B SaaS GTM?
-- **Consistency & Compounding:** What publishing cadence and content strategy compound over time?
-- **Conversion Focus:** How do they measure and optimize for leads/pipeline, not just views?
-
----
-
 ## Additional Resources
 
 ### Tools & Frameworks Mentioned
