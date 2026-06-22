@@ -34,7 +34,7 @@ research/
 │   └── all-posts.md
 ├── youtube-transcripts/                # Transcripts organized by creator
 │   ├── TRANSCRIPT-INDEX.md             # Master index of all videos
-│   ├── adam-robinson/                  # 4 videos
+│   ├── adam-robinson/                  # 3 videos
 │   ├── samu-kovacs/                    # 3 videos
 │   ├── eric-siu-single-grain/          # 1 video (additional resource)
 │   └── unknown-creators/              # 1 video (creator TBD)
@@ -47,7 +47,7 @@ research/
 ### YouTube Transcripts
 | Creator | Videos | Status |
 |---------|--------|--------|
-| Adam Robinson (RB2B) | 3 videos | 1 complete, 2 pending |
+| Adam Robinson (RB2B) | 3 videos | Complete |
 | Samu Kovács (KS Media) | 3 videos | Complete |
 | Derral Eves (VidSummit) | 1 video | Complete |
 | Eric Siu (Single Grain) | 1 video | Complete (additional resource) |

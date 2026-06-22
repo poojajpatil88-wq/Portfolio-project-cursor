@@ -1,8 +1,8 @@
 # YouTube Transcripts Index
 
-**Total Transcripts Collected:** 7 videos  
+**Total Transcripts Collected:** 9 videos  
 **Total Transcripts Planned:** 9 videos  
-**Status:** 2 transcripts pending (see below)  
+**Status:** All transcripts complete  
 **Date Organized:** June 2026
 
 ---
@@ -11,7 +11,7 @@
 
 ```
 research/youtube-transcripts/
-├── adam-robinson/                  (4 videos — 1 complete, 3 pending)
+├── adam-robinson/                  (3 videos — complete)
 ├── samu-kovacs/                    (3 videos — complete)
 ├── eric-siu-single-grain/         (1 video — complete, additional resource)
 ├── unknown-creators/              (1 video — creator TBD)
@@ -22,14 +22,14 @@ research/youtube-transcripts/
 
 ## Video List by Creator
 
-### **Adam Robinson** — RB2B & Retention.com (4 Videos)
+### **Adam Robinson** — RB2B & Retention.com (3 Videos)
 Bootstrapped SaaS founder; documents his exact YouTube GTM strategy with real numbers; $7M+ ARR from founder-led content.
 
 | # | File | Topic | Status | Video |
 |---|------|-------|--------|-------|
 | 1 | `01-ai-funnel-rb2b-7m-arr.md` | This AI Funnel Scaled My SaaS to $7M/yr | ✅ Complete | [Watch](https://www.youtube.com/watch?v=PCClwboo9ls) |
-| 2 | `02-linkedin-content-strategy-b2b.md` | LinkedIn Content Strategy for B2B SaaS | ⏳ Pending | [Watch](https://www.youtube.com/watch?v=bGjZzSY_-HQ) |
-| 3 | `03-youtube-thumbnails-b2b-strategy.md` | YouTube Thumbnails & B2B SaaS Video Strategy | ⏳ Pending | [Watch](https://www.youtube.com/watch?v=cBEbVG8T1GA) |
+| 2 | `02-rb2b-video-content-strategy-john-elely.md` | RB2B's Video Content Strategy — With John Elely | ✅ Complete | [Watch](https://www.youtube.com/watch?v=_ZK7wgkHuG4) |
+| 3 | `03-eric-siu-founder-content-strategy-rb2b.md` | Eric Siu Just Blew Up Every Founder Content Strategy I've Seen | ✅ Complete | [Watch](https://www.youtube.com/watch?v=VhaxdYjgKyY) |
 
 ---
 
@@ -91,6 +91,16 @@ Runs 30+ B2B YouTube channels; known for zero-gatekeeping frameworks; clients in
 - Cold email at scale: 165,000/month, 10% conversion on retargeting
 - Intercom Finn: 80%+ AI ticket resolution from 25% starting point
 - Free-to-paid conversion: 12.5% (250/2,000 monthly signups)
+- Three RB2B content types: Billion Dollar Challenge (docu-series) / Talking Heads / Live Events
+- Three content pillars: Connection, Education, Inspiration
+- 80/20 rule: keep 80% of what works, iterate 20%
+- Story structure: Hook → Educate → CTA (three beats only)
+- Traditional SEO dying ("open jaw" graph: impressions up, clicks down)
+- Search Everywhere Optimization: YouTube, Reddit, Amazon, X — not just Google
+- YouTube is the biggest organic opportunity for the next decade
+- ABM = B2B marketing; personalized LinkedIn ads drive 2-3x engagement, double conversions
+- One-click marketing is 1-2 years away
+- Podcast as pillar: record → YouTube → chop into short form → GenSpark for X + LinkedIn repurposing
 
 ### Eric Siu (Single Grain)
 - 5 new rules of B2B marketing 2026
@@ -113,9 +123,9 @@ Runs 30+ B2B YouTube channels; known for zero-gatekeeping frameworks; clients in
 
 | Metric | Count |
 |--------|-------|
-| Total Videos Collected | 7 |
+| Total Videos Collected | 9 |
 | Total Videos Planned | 9 |
-| Pending Transcripts | 2 |
+| Pending Transcripts | 0 |
 | Creators Identified | 4 |
 | Unknown Creators | 1 video |
 
@@ -123,12 +133,7 @@ Runs 30+ B2B YouTube channels; known for zero-gatekeeping frameworks; clients in
 
 ## Pending Transcripts
 
-These 4 videos still need transcripts extracted:
-
-| Creator | Topic | URL |
-|---------|-------|-----|
-| Adam Robinson | LinkedIn Content Strategy for B2B SaaS | https://www.youtube.com/watch?v=bGjZzSY_-HQ |
-| Adam Robinson | YouTube Thumbnails & B2B SaaS Video Strategy | https://www.youtube.com/watch?v=cBEbVG8T1GA |
+All transcripts are complete. No videos pending.
 
 ---
 
