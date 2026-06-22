@@ -38,7 +38,6 @@ research/
 │   ├── samu-kovacs/                    # 3 videos
 │   ├── eric-siu-single-grain/          # 1 video (additional resource)
 │   └── unknown-creators/              # 1 video (creator TBD)
-└── other/                              # Additional materials and frameworks
 ```
 
 ---
