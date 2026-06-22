@@ -38,6 +38,9 @@ research/
 │   ├── samu-kovacs/                    # 3 videos
 │   ├── eric-siu-single-grain/          # 1 video (additional resource)
 │   └── unknown-creators/              # 1 video (creator TBD)
+└── other/                              # Blog posts and supplementary articles
+    ├── 01-pixel8-b2b-saas-youtube-strategy.md
+    └── 02-contentbuck-youtube-seo-b2b-saas.md
 ```
 
 ---
@@ -54,7 +57,18 @@ research/
 | Unknown Creator | 1 video | Complete |
 
 ### LinkedIn Posts
-Single file (`all-posts.md`) with sections for all 10 experts — posts to be added.
+| Author | Posts | Notes |
+|--------|-------|-------|
+| Derral Eves (VidSummit) | 1 post | Publishing timing tweak driving 216% more views |
+| Eric Siu (Single Grain) | 1 post | Additional resource — open loops vs. closed loops in AI marketing |
+| Chris Donnelly | 1 post | Additional resource — AI-powered 5-stage marketing funnel |
+| Johnny Page | 1 post | Additional resource — 8-day AI hackathon takeaways for founders |
+
+### Blog Posts
+| Source | Title | Notes |
+|--------|-------|-------|
+| Pixel8 Production | B2B SaaS YouTube Channel Strategy: Complete Guide 2026 | Prakhar Mehta — content pillars, timeline, revenue attribution |
+| ContentBuck | YouTube SEO for B2B SaaS: How to Rank Higher in 2026 | Parth Jasrapuria — 8-step SEO framework, algorithm changes, CTR benchmarks |
 
 ---
 
